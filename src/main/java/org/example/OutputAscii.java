@@ -234,7 +234,7 @@ public class OutputAscii {
         }
         return healthBar;
     }
-    public void startCombat(Character pc, Character npc){
+    public void startCombat(Person pc, Person npc){
         System.out.println(CYAN_BOLD_BRIGHT + pc.getName() + RESET + generateSpaces(106 - pc.getName().length()) +
                 RED_BOLD_BRIGHT + npc.getName() + RESET);
         String pcHP = generateHealthBar(pc.getMight());
@@ -244,7 +244,7 @@ public class OutputAscii {
                 npcHP);
 
     }
-    public void combatRound(Character pc, Character npc, String result){
+    public void combatRound(Person pc, Person npc, String result){
         String pcHealthBar = generateHealthBar(pc.getMight(),pc.getCurrentHealth());
         String npcHealthBar = generateHealthBar(npc.getMight(), npc.getCurrentHealth());
         int spaceLength =  (155 - (result.length() + pcHealthBar.length() + npcHealthBar.length() -

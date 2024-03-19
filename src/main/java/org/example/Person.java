@@ -1,6 +1,6 @@
 package org.example;
 
-public class Character {
+public class Person {
     private int unleashRoundTracker = 0;
     private String name;
     private int might;

@@ -7,7 +7,7 @@ public class Main {
 
     //DATA
     private static Scanner input = new Scanner(System.in);
-    private static Character pc = new Character();
+    private static Person pc = new Person();
     private static OutputAscii op = new OutputAscii();
 
 
@@ -26,7 +26,7 @@ public class Main {
         //System.out.println(op.generateSpaces(40) + "Welcome, gladiator " + OutputAscii.CYAN_BOLD_BRIGHT + pc.getName() + OutputAscii.RESET + "!");
         //
         //op.printSprite(pc.spriteGen(), OutputAscii.CYAN_BOLD_BRIGHT, 35);
-        Character enemy = npcGenerator(1);
+        Person enemy = npcGenerator(1);
         //Character enemy1 = npcGenerator(1);
 
 
@@ -175,7 +175,7 @@ public class Main {
     public static boolean isInputLength1(String input){
         return input.length() == 1;
     }
-    public static boolean isADU(String input, Character pc){
+    public static boolean isADU(String input, Person pc){
         boolean isADU = true;
         List<String> listADU = new ArrayList<>();
         listADU.add("a");
@@ -192,7 +192,7 @@ public class Main {
         }
         return isADU;
     }
-    public static String generateADU(Character npc){
+    public static String generateADU(Person npc){
         List<String> listADU = new ArrayList<>();
         listADU.add("a");
         listADU.add("d");
@@ -228,8 +228,8 @@ public class Main {
         Collections.shuffle(names);
         return names.get(0);
     }
-    public static Character npcGenerator(int modifier){
-        Character npc = new Character();
+    public static Person npcGenerator(int modifier){
+        Person npc = new Person();
         npc.setName(nameGenerator());
         Equipment npcEquipment = new Equipment();
         int diceRoll = rollDice(2) - 1; //cuz head list is from 0 to 1

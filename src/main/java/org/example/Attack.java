@@ -1,7 +1,5 @@
 package org.example;
 
-import java.util.Locale;
-
 public class Attack {
 //    private Character pc;
 //    private String pcInput;
@@ -20,7 +18,7 @@ public class Attack {
 
 
     //METHODS
-    public static String round(Character pc, String pcInput,Character npc, String npcInput){
+    public static String round(Person pc, String pcInput, Person npc, String npcInput){
         String attackString = "";
         int pcAttack = pc.getCurrentLoadout().getLeftHand().getDamage() + pc.getCurrentLoadout().getRightHand().getDamage() + Main.rollDice(4);
         int pcReduction = pc.getCurrentLoadout().getHead().getDamageReduction() + pc.getCurrentLoadout().getRightHand().getDamageReduction() +
