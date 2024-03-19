@@ -12,15 +12,18 @@ public class Main {
 
 
     public static void main(String[] args) {
+
+
         //Scanner input = new Scanner(System.in);
 
         //OutputAscii op = new OutputAscii();
         //System.out.println("Hello world!");
-        op.printAsciiTitle();
+//        op.printAsciiTitle();
         //Character pc = new Character();
-        System.out.print( op.generateSpaces(45)+"Name your gladiator: ");
-        pc.setName(input.nextLine());
-        pc.setMight(rollDice(10) +3);
+//        System.out.print( op.generateSpaces(45)+"Name your gladiator: ");
+//        pc.setName(input.nextLine());
+//        pc.setMight(rollDice(10) +3);
+        startup();
 
 
         //System.out.println(op.generateSpaces(40) + "Welcome, gladiator " + OutputAscii.CYAN_BOLD_BRIGHT + pc.getName() + OutputAscii.RESET + "!");
@@ -60,12 +63,12 @@ public class Main {
             op.combatRound(pc,enemy,result);
             if (pc.getCurrentHealth() <= 0){
                 System.out.println();
-                System.out.print(OutputAscii.generateSpaces(35) + OutputAscii.CYAN_BOLD_BRIGHT + pc.getName() + OutputAscii.RESET +
+                System.out.println(OutputAscii.generateSpaces(35) + "Unfourtunatly, " + OutputAscii.CYAN_BOLD_BRIGHT + pc.getName() + OutputAscii.RESET +
                         " has been defeated by " + OutputAscii.RED_BOLD_BRIGHT + enemy.getName() + OutputAscii.RESET + "!");
             }
             if (enemy.getCurrentHealth() <= 0){
-                System.out.println();
-                System.out.print(OutputAscii.generateSpaces(35) + OutputAscii.CYAN_BOLD_BRIGHT + pc.getName() + OutputAscii.RESET +
+                System.out.println();//Congratulations
+                System.out.println(OutputAscii.generateSpaces(35) + "Congratulations! " + OutputAscii.CYAN_BOLD_BRIGHT + pc.getName() + OutputAscii.RESET +
                         " has defeated " + OutputAscii.RED_BOLD_BRIGHT + enemy.getName() + OutputAscii.RESET + "!");
             }
 
@@ -83,6 +86,14 @@ public class Main {
 
 
 
+
+    }
+
+    public static void startup(){
+        op.printAsciiTitle();
+        System.out.print( op.generateSpaces(45)+"Name your gladiator: ");
+        pc.setName(input.nextLine());
+        pc.setMight(rollDice(10) +5);
 
     }
     public static String getADU(){
