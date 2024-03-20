@@ -29,50 +29,51 @@ public class Main {
         //System.out.println(op.generateSpaces(40) + "Welcome, gladiator " + OutputAscii.CYAN_BOLD_BRIGHT + pc.getName() + OutputAscii.RESET + "!");
         //
         //op.printSprite(pc.spriteGen(), OutputAscii.CYAN_BOLD_BRIGHT, 35);
-        Person enemy = npcGenerator(1);
+//        Person enemy = npcGenerator(1);
         //Character enemy1 = npcGenerator(1);
 
+        isPCVictorious(npcGenerator(1));
 
         //Character enemy = new Character();
         //enemy.setName(enemy1.getName());
         //enemy.setMight(rollDice(10) +3);
-        System.out.println(OutputAscii.generateSpaces(40) + "Welcome, " + OutputAscii.CYAN_BOLD_BRIGHT + pc.getName() +OutputAscii.RESET +
-                ", you'll be facing " + OutputAscii.RED_BOLD_BRIGHT + enemy.getName() + OutputAscii.RESET + "!");
+//        System.out.println(OutputAscii.generateSpaces(40) + "Welcome, " + OutputAscii.CYAN_BOLD_BRIGHT + pc.getName() +OutputAscii.RESET +
+//                ", you'll be facing " + OutputAscii.RED_BOLD_BRIGHT + enemy.getName() + OutputAscii.RESET + "!");
 
         //op.printSprite(enemy.spriteGen(),OutputAscii.RED_BOLD_BRIGHT);
 
 
-        System.out.println("");
-        op.printArena(pc.spriteGen(), OutputAscii.CYAN_BOLD_BRIGHT, enemy.spriteGen(),OutputAscii.RED_BOLD_BRIGHT);
+//        System.out.println("");
+//        op.printArena(pc.spriteGen(), OutputAscii.CYAN_BOLD_BRIGHT, enemy.spriteGen(),OutputAscii.RED_BOLD_BRIGHT);
         // [A]ttack, [D]efend, or [U]nleash?
 
-        op.startCombat(pc,enemy);
+//        op.startCombat(pc,enemy);
 
 
 
         // combat method??
         // add generating enemy
-        while (pc.getCurrentHealth() > 0 && enemy.getCurrentHealth() > 0){
-            //Round of combat
-            String pcADU = getADU();
-            String npcADU = generateADU(enemy);
-            String result = Attack.round(pc, pcADU, enemy, npcADU);
-            pc.incrementUnleashRoundTracker(pcADU);
-            enemy.incrementUnleashRoundTracker(npcADU);
-
-            op.combatRound(pc,enemy,result);
-            if (pc.getCurrentHealth() <= 0){
-                System.out.println();
-                System.out.println(OutputAscii.generateSpaces(35) + "Unfourtunatly, " + OutputAscii.CYAN_BOLD_BRIGHT + pc.getName() + OutputAscii.RESET +
-                        " has been defeated by " + OutputAscii.RED_BOLD_BRIGHT + enemy.getName() + OutputAscii.RESET + "!");
-            }
-            if (enemy.getCurrentHealth() <= 0){
-                System.out.println();//Congratulations
-                System.out.println(OutputAscii.generateSpaces(35) + "Congratulations! " + OutputAscii.CYAN_BOLD_BRIGHT + pc.getName() + OutputAscii.RESET +
-                        " has defeated " + OutputAscii.RED_BOLD_BRIGHT + enemy.getName() + OutputAscii.RESET + "!");
-            }
-
-        }
+//        while (pc.getCurrentHealth() > 0 && enemy.getCurrentHealth() > 0){
+//            //Round of combat
+//            String pcADU = getADU();
+//            String npcADU = generateADU(enemy);
+//            String result = Attack.round(pc, pcADU, enemy, npcADU);
+//            pc.incrementUnleashRoundTracker(pcADU);
+//            enemy.incrementUnleashRoundTracker(npcADU);
+//
+//            op.combatRound(pc,enemy,result);
+//            if (pc.getCurrentHealth() <= 0){
+//                System.out.println();
+//                System.out.println(OutputAscii.generateSpaces(35) + "Unfourtunatly, " + OutputAscii.CYAN_BOLD_BRIGHT + pc.getName() + OutputAscii.RESET +
+//                        " has been defeated by " + OutputAscii.RED_BOLD_BRIGHT + enemy.getName() + OutputAscii.RESET + "!");
+//            }
+//            if (enemy.getCurrentHealth() <= 0){
+//                System.out.println();//Congratulations
+//                System.out.println(OutputAscii.generateSpaces(35) + "Congratulations! " + OutputAscii.CYAN_BOLD_BRIGHT + pc.getName() + OutputAscii.RESET +
+//                        " has defeated " + OutputAscii.RED_BOLD_BRIGHT + enemy.getName() + OutputAscii.RESET + "!");
+//            }
+//
+//        }
 
         //upgrade method
         // What would you like to upgrade?
@@ -94,6 +95,39 @@ public class Main {
         System.out.print( op.generateSpaces(45)+"Name your gladiator: ");
         pc.setName(input.nextLine());
         pc.setMight(rollDice(10) +5);
+
+    }
+    public static boolean isPCVictorious(Person enemy){
+        boolean isPCWinner = false;
+        System.out.println(OutputAscii.generateSpaces(40) + "Welcome, " + OutputAscii.CYAN_BOLD_BRIGHT + pc.getName() +OutputAscii.RESET +
+                ", you'll be facing " + OutputAscii.RED_BOLD_BRIGHT + enemy.getName() + OutputAscii.RESET + "!");
+        System.out.println("");
+        op.printArena(pc.spriteGen(), OutputAscii.CYAN_BOLD_BRIGHT, enemy.spriteGen(),OutputAscii.RED_BOLD_BRIGHT);
+        op.startCombat(pc,enemy);
+        while (pc.getCurrentHealth() > 0 && enemy.getCurrentHealth() > 0){
+            //Round of combat
+            String pcADU = getADU();
+            String npcADU = generateADU(enemy);
+            String result = Attack.round(pc, pcADU, enemy, npcADU);
+            pc.incrementUnleashRoundTracker(pcADU);
+            enemy.incrementUnleashRoundTracker(npcADU);
+
+            op.combatRound(pc,enemy,result);
+            if (pc.getCurrentHealth() <= 0){
+                System.out.println();
+                System.out.println(OutputAscii.generateSpaces(35) + "Unfourtunatly, " + OutputAscii.CYAN_BOLD_BRIGHT + pc.getName() + OutputAscii.RESET +
+                        " has been defeated by " + OutputAscii.RED_BOLD_BRIGHT + enemy.getName() + OutputAscii.RESET + "!");
+
+            }
+            if (enemy.getCurrentHealth() <= 0){
+                System.out.println();//Congratulations
+                System.out.println(OutputAscii.generateSpaces(35) + "Congratulations! " + OutputAscii.CYAN_BOLD_BRIGHT + pc.getName() + OutputAscii.RESET +
+                        " has defeated " + OutputAscii.RED_BOLD_BRIGHT + enemy.getName() + OutputAscii.RESET + "!");
+                isPCWinner = true;
+            }
+
+        }
+        return isPCWinner;
 
     }
     public static String getADU(){
