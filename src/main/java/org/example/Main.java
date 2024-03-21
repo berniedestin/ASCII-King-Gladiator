@@ -36,8 +36,13 @@ public class Main {
 //        Person enemy = npcGenerator(1);
         //Character enemy1 = npcGenerator(1);
         while(roundNumber < 10){
-            int modifier = roundNumber/3 + 1;
+            int modifier = roundNumber/3 +1;
             boolean isPlayerWinner = isPCVictorious(npcGenerator(modifier));
+            if(isPlayerWinner){
+                System.out.println(op.generateSpaces(45) + "You get a bonus upgrade for your victory!");
+                upgradeStore(isPlayerWinner);
+            }
+            upgradeStore(isPlayerWinner);
             roundNumber++;
 
         }
@@ -152,13 +157,40 @@ public class Main {
             while (isNotValidInput){
                 String upgradeNumber = input.next();
                 if(isInteger(upgradeNumber) && Integer.parseInt(upgradeNumber) > 0 && Integer.parseInt(upgradeNumber) < storeList.size()){
-                    String selection = storeList.get(Integer.parseInt(upgradeNumber));
+                    String selection = storeList.get(Integer.parseInt(upgradeNumber) - 1) ;
                     if( selection == "Head"){
                         int level = pc.getCurrentLoadout().getHead().getDamageReduction();
-
+                        level++;
+                        if(level >= Equipment.getHeadTracker().size()){
+                            storeList.remove(selection);
+                        }
+                        pc.getCurrentLoadout().setHead(new Head(Equipment.getHeadTracker().get(level),level) );
+                        System.out.println(op.generateSpaces(45) + "You upgraded your Headgear");
 
                     } else if(selection == "Body"){
-
+                        int level = pc.getCurrentLoadout().getBody().getHealthMod();
+                        level += 2;
+                        if(level / 2 >= Equipment.getBodyTracker().size()){
+                            storeList.remove(selection);
+                        }
+                        pc.getCurrentLoadout().setBody(new Body(Equipment.getBodyTracker().get(level/2),level) );
+                        System.out.println(op.generateSpaces(45) + "You upgraded your Body");
+                    } else if(selection == "Sword"){
+                        int level = pc.getCurrentLoadout().getLeftHand().getDamage();
+                        level += 2;
+                        if(level / 2 >= Equipment.getLhSwordTracker().size()){
+                            storeList.remove(selection);
+                        }
+                        pc.getCurrentLoadout().setLeftHand(new Sword(Equipment.getLhSwordTracker().get(level / 2), level));
+                        System.out.println(op.generateSpaces(45) + "You upgraded your Sword");
+                    } else if(selection == "Shield"){
+                        int level = pc.getCurrentLoadout().getRightHand().getDamageReduction();
+                        level += 1;
+                        if(level >= Equipment.getBodyTracker().size()){
+                            storeList.remove(selection);
+                        }
+                        pc.getCurrentLoadout().setRightHand(new Shield(Equipment.getShieldTracker().get(level),level) );
+                        System.out.println(op.generateSpaces(45) + "You upgraded your Shield");
                     }
                     isNotValidInput = false;
 
