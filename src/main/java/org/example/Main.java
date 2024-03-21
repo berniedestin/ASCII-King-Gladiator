@@ -9,6 +9,10 @@ public class Main {
     private static Scanner input = new Scanner(System.in);
     private static Person pc = new Person();
     private static OutputAscii op = new OutputAscii();
+    private static int roundNumber = 1;
+
+    private static List<String> storeList = Arrays.asList(new String[]{"Head","Body","Sword","Shield"});// sword and shield should be left and right handable
+
 
 
     public static void main(String[] args) {
@@ -31,8 +35,14 @@ public class Main {
         //op.printSprite(pc.spriteGen(), OutputAscii.CYAN_BOLD_BRIGHT, 35);
 //        Person enemy = npcGenerator(1);
         //Character enemy1 = npcGenerator(1);
+        while(roundNumber < 10){
+            int modifier = roundNumber/3 + 1;
+            boolean isPlayerWinner = isPCVictorious(npcGenerator(modifier));
+            roundNumber++;
 
-        isPCVictorious(npcGenerator(1));
+        }
+
+        //isPCVictorious(npcGenerator(1));
 
         //Character enemy = new Character();
         //enemy.setName(enemy1.getName());
@@ -130,6 +140,40 @@ public class Main {
         return isPCWinner;
 
     }
+    public static void upgradeStore(boolean isPCWinner){
+        boolean isNotValidInput = true;
+        if(storeList.size() == 0){
+            System.out.println("There are no more upgrades!");
+        } else{
+            System.out.println(op.generateSpaces(45) + "What would you like to upgrade?");
+            for(String category : storeList){
+                System.out.println(op.generateSpaces(45) + (storeList.indexOf(category)+1) + ") " + category);
+            }
+            while (isNotValidInput){
+                String upgradeNumber = input.next();
+                if(isInteger(upgradeNumber) && Integer.parseInt(upgradeNumber) > 0 && Integer.parseInt(upgradeNumber) < storeList.size()){
+                    String selection = storeList.get(Integer.parseInt(upgradeNumber));
+                    if( selection == "Head"){
+                        int level = pc.getCurrentLoadout().getHead().getDamageReduction();
+
+
+                    } else if(selection == "Body"){
+
+                    }
+                    isNotValidInput = false;
+
+                } else{
+                    System.out.println("Please enter a valid number");
+                }
+            }
+
+        }
+//        System.out.println(op.generateSpaces(45) + "1) Head");
+//        System.out.println(op.generateSpaces(45) + "2) Body");
+//        System.out.println(op.generateSpaces(45) + "3) Sword");
+//        System.out.println(op.generateSpaces(45) + "4) Shield");
+    }
+
     public static String getADU(){
         boolean isNotValidInput = true;
         System.out.print("     [A]ttack, [D]efend, or [U]nleash? ");
@@ -283,13 +327,13 @@ public class Main {
                 3:
                 modifier;
         npcEquipment.setBody(new Body(Equipment.getBodyTracker().get(diceRoll),diceRoll));
-        diceRoll = modifier; //rollDice(4);
+        diceRoll = modifier + (rollDice(2)-1); //rollDice(4);
         npcEquipment.setLeftHand(new Sword(Equipment.getLhSwordTracker().get(diceRoll), diceRoll) );
-        diceRoll = modifier;//rollDice(4);
+        diceRoll = modifier+ (rollDice(2)-1);//rollDice(4);
         npcEquipment.setRightHand(new Shield(Equipment.getShieldTracker().get(diceRoll), diceRoll) );
 
         npc.setCurrentLoadout(npcEquipment);
-        npc.setMight(rollDice(10)+modifier);
+        npc.setMight(rollDice(10)+roundNumber);
 
         return npc;
     }

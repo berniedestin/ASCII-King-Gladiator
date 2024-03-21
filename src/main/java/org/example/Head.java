@@ -25,4 +25,7 @@ public class Head extends Item {
     public int getDamageReduction() {
         return damageReduction;
     }
+    public void setDamageReduction(int damageReduction){
+        this.damageReduction = damageReduction;
+    }
 }
