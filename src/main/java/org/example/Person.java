@@ -45,6 +45,9 @@ public class Person {
             this.damage += damage;
         }
     }
+    public void resetHealth(){
+        this.damage = 0;
+    }
 
     public int getCurrentHealth(){
         return might - damage;

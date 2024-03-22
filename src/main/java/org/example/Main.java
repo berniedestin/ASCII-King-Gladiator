@@ -11,7 +11,7 @@ public class Main {
     private static OutputAscii op = new OutputAscii();
     private static int roundNumber = 1;
 
-    private static List<String> storeList = Arrays.asList(new String[]{"Head","Body","Sword","Shield"});// sword and shield should be left and right handable
+    private static List<String> storeList = new ArrayList<>(Arrays.asList(new String[]{"Head","Body","Sword","Shield"})) ;// sword and shield should be left and right handable
 
 
 
@@ -43,6 +43,7 @@ public class Main {
                 upgradeStore(isPlayerWinner);
             }
             upgradeStore(isPlayerWinner);
+            pc.resetHealth();
             roundNumber++;
 
         }
