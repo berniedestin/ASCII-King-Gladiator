@@ -36,10 +36,11 @@ public class Main {
 //        Person enemy = npcGenerator(1);
         //Character enemy1 = npcGenerator(1);
         while(roundNumber < 10){
-            int modifier = roundNumber/3 +1;
+            int modifier = setModifier();
             boolean isPlayerWinner = isPCVictorious(npcGenerator(modifier));
             if(isPlayerWinner){
                 System.out.println(op.generateSpaces(45) + "You get a bonus upgrade for your victory!");
+                pc.setOpponentsDefeated(pc.getOpponentsDefeated() + 1);
                 upgradeStore(isPlayerWinner);
             }
             upgradeStore(isPlayerWinner);
@@ -47,6 +48,8 @@ public class Main {
             roundNumber++;
 
         }
+
+        System.out.println(op.generateSpaces(35) + "Congratulations! " + pc.getName() + " has defeated " + pc.getOpponentsDefeated() + " out of 10 opponents!");
 
         //isPCVictorious(npcGenerator(1));
 
@@ -105,16 +108,26 @@ public class Main {
 
 
     }
+    public static int setModifier(){
+        if(roundNumber <= 3){
+            return 1;
+        }else if(roundNumber <= 6){
+            return 2;
+        }else {
+            return 3;
+        }
+    }
 
     public static void startup(){
         op.printAsciiTitle();
         System.out.print( op.generateSpaces(45)+"Name your gladiator: ");
         pc.setName(input.nextLine());
-        pc.setMight(rollDice(10) +5);
+        pc.setMight(5);
 
     }
     public static boolean isPCVictorious(Person enemy){
         boolean isPCWinner = false;
+        System.out.println(OutputAscii.generateSpaces(50) + "Round #" + roundNumber);
         System.out.println(OutputAscii.generateSpaces(40) + "Welcome, " + OutputAscii.CYAN_BOLD_BRIGHT + pc.getName() +OutputAscii.RESET +
                 ", you'll be facing " + OutputAscii.RED_BOLD_BRIGHT + enemy.getName() + OutputAscii.RESET + "!");
         System.out.println("");
@@ -157,12 +170,12 @@ public class Main {
             }
             while (isNotValidInput){
                 String upgradeNumber = input.next();
-                if(isInteger(upgradeNumber) && Integer.parseInt(upgradeNumber) > 0 && Integer.parseInt(upgradeNumber) < storeList.size()){
+                if(isInteger(upgradeNumber) && Integer.parseInt(upgradeNumber) > 0 && Integer.parseInt(upgradeNumber) <= storeList.size()){
                     String selection = storeList.get(Integer.parseInt(upgradeNumber) - 1) ;
                     if( selection == "Head"){
                         int level = pc.getCurrentLoadout().getHead().getDamageReduction();
                         level++;
-                        if(level >= Equipment.getHeadTracker().size()){
+                        if(level >= Equipment.getHeadTracker().size() -1){
                             storeList.remove(selection);
                         }
                         pc.getCurrentLoadout().setHead(new Head(Equipment.getHeadTracker().get(level),level) );
@@ -175,6 +188,7 @@ public class Main {
                             storeList.remove(selection);
                         }
                         pc.getCurrentLoadout().setBody(new Body(Equipment.getBodyTracker().get(level/2),level) );
+                        pc.setMight(5);
                         System.out.println(op.generateSpaces(45) + "You upgraded your Body");
                     } else if(selection == "Sword"){
                         int level = pc.getCurrentLoadout().getLeftHand().getDamage();

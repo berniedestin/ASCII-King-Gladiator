@@ -37,6 +37,15 @@ public class Person {
     public void setMight(int might){
         this.might = might + currentLoadout.getBody().getHealthMod();
     }
+
+    public int getOpponentsDefeated() {
+        return opponentsDefeated;
+    }
+
+    public void setOpponentsDefeated(int opponentsDefeated) {
+        this.opponentsDefeated = opponentsDefeated;
+    }
+
     public void setDamage(int damage){
         this.damage = damage;
     }
